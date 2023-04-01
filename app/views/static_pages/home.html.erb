@@ -1,8 +1,17 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<h1>Flickr pictures</h1>
 
+<%= form_with url: "/static_pages/home", method: :get do |form| %>
+  <%= form.label :flickr_user_id, "Flickr user ID:" %>
+  <%= form.text_field :flickr_user_id %>
+  <%= form.submit "Get Photos" %>
+<% end %>
 
-<% @list.each do |p|%>
-  <%= p %>
-
+<% if @list.any? %>
+  <ul>
+  <% @list.each do |p|%>
+    <li><%= image_tag "https://live.staticflickr.com/#{p["server"]}/#{p["id"]}_#{p["secret"]}_z.jpg" %></li>
+  <% end %>
+</ul>
+<% else %>
+  <p>Insert a valid ID</p>
 <% end %>
